@@ -28,7 +28,7 @@
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             padding: 40px;
-            max-width: 700px;
+            max-width: 900px;
             width: 100%;
         }
 
@@ -199,29 +199,31 @@
             color: #333;
         }
 
-        .info-box {
-            margin-top: 30px;
-            padding: 15px;
-            background: #e7f3ff;
-            border-left: 4px solid #2196F3;
-            border-radius: 5px;
-            font-size: 13px;
-            color: #555;
+        .ad-title {
+            color: #2196F3;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
             text-align: center;
         }
 
-        .info-box strong {
-            color: #2196F3;
-            font-size: 16px;
+        .qrcode-img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border: 3px solid #2196F3;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(33, 150, 243, 0.3);
+            margin: 20px 0;
+            display: block;
         }
 
-        .qrcode-img {
-            width: 200px;
-            height: 200px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            margin: 15px auto;
-            display: block;
+        .ad-description {
+            color: #555;
+            font-size: 16px;
+            text-align: center;
+            margin-top: 20px;
+            line-height: 1.6;
         }
 
         .copy-btn {
@@ -245,11 +247,16 @@
             color: #999;
             font-size: 12px;
         }
+
+        .ad-description strong {
+            color: #2196F3;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎬 Sora视频去水印工具</h1>
+        <h1>🎬 一键生成动画</h1>
         <p class="subtitle">输入官网分享链接，一键获取无水印视频 | 完全免费</p>
 
         <div class="input-group">
@@ -285,11 +292,15 @@
             </div>
         </div>
 
-        <div class="info-box">
-            <strong>📞 软件客服</strong><br><br>
-            <!-- 二维码图片 - 请替换为你的客服二维码 -->
-            <img src="qrcode.png" alt="客服二维码" class="qrcode-img" onerror="this.style.display='none'">
-            <p style="color: #666; font-size: 13px; margin-top: 10px;">扫码添加客服微信，获取更多帮助</p>
+        <!-- 广告区域 -->
+        <div class="ad-section">
+            <div class="ad-title">📞 软件客服</div>
+            <img src="qrcode.png" alt="客服二维码" class="qrcode-img">
+            <div class="ad-description">
+                <strong>扫码添加客服微信</strong><br>
+                获取更多帮助和专业服务<br>
+                一对一解答您的问题
+            </div>
         </div>
 
         <footer>
@@ -383,3 +394,42 @@
     </script>
 </body>
 </html>
+
+        .ad-section {
+            margin-top: 40px;
+            padding: 40px;
+            background: linear-gradient(135deg, #e7f3ff 0%, #d1ecf1 100%);
+            border-radius: 15px;
+            border: 3px solid #2196F3;
+            text-align: center;
+        }
+
+        .ad-title {
+            color: #2196F3;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .qrcode-img {
+            width: 100%;
+            height: auto;
+            border: 3px solid #2196F3;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(33, 150, 243, 0.3);
+            margin: 0 auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .ad-description {
+            color: #555;
+            font-size: 18px;
+            margin-top: 25px;
+            line-height: 1.8;
+        }
+
+        .ad-description strong {
+            color: #2196F3;
+            font-size: 20px;
+        }
