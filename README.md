@@ -1,41 +1,403 @@
-# 🎬 Sora视频去水印工具
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sora视频去水印工具 - 免费在线下载无水印Sora视频">
+    <meta name="keywords" content="Sora,视频下载,去水印,ChatGPT,AI视频">
+    <title>Sora视频去水印工具 - 免费在线使用</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-一个简单易用的在线工具，帮助你下载无水印的Sora视频。
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
 
-## ✨ 特点
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 900px;
+            width: 100%;
+        }
 
-- 🆓 完全免费
-- 🚀 无需安装，在线使用
-- 💻 支持所有设备（电脑、手机、平板）
-- 🔒 隐私安全，不上传任何数据
-- ⚡ 快速解析，即时下载
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+            text-align: center;
+        }
 
-## 🎯 使用方法
+        .subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
 
-1. 在ChatGPT官网使用Sora生成视频
-2. 点击分享按钮，复制分享链接
-3. 将链接粘贴到工具输入框
-4. 点击"开始处理"按钮
-5. 下载无水印视频
+        .input-group {
+            margin-bottom: 20px;
+        }
 
-## 📝 支持的链接格式
+        label {
+            display: block;
+            color: #555;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
 
-- `https://sora.chatgpt.com/p/s_xxxxx...`
-- `https://sora.com/share/s_xxxxx...`
-- 直接输入视频ID: `s_xxxxx...`
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+            font-family: inherit;
+            min-height: 100px;
+            resize: vertical;
+        }
 
-## 🔧 技术原理
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
 
-本工具使用第三方CDN镜像服务，该服务会自动镜像Sora官网的视频并去除水印。
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
 
-## 📞 联系我们
+        button {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
 
-如有问题，请扫描页面底部的客服二维码联系我们。
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
 
-## 📄 许可证
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
 
-MIT License
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
 
----
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #666;
+        }
 
-**提示**: 本工具仅供学习交流使用，请勿用于商业用途。
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            word-break: break-all;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+            display: block;
+        }
+
+        .download-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .download-section.show {
+            display: block;
+        }
+
+        .video-url {
+            padding: 10px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            word-break: break-all;
+            font-size: 12px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+
+        .download-link a {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 5px;
+        }
+
+        .download-link a:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        .example {
+            margin-top: 15px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .example strong {
+            color: #333;
+        }
+
+        .ad-section {
+            margin-top: 40px;
+            padding: 40px;
+            background: linear-gradient(135deg, #e7f3ff 0%, #d1ecf1 100%);
+            border-radius: 15px;
+            border: 3px solid #2196F3;
+            text-align: center;
+        }
+
+        .ad-title {
+            color: #2196F3;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .qrcode-img {
+            width: 100%;
+            height: auto;
+            border: 3px solid #2196F3;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(33, 150, 243, 0.3);
+            margin: 0 auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .ad-description {
+            color: #555;
+            font-size: 18px;
+            margin-top: 25px;
+            line-height: 1.8;
+        }
+
+        .ad-description strong {
+            color: #2196F3;
+            font-size: 20px;
+        }
+
+        .copy-btn {
+            padding: 5px 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .copy-btn:hover {
+            background: #0056b3;
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎬 一键生成动画</h1>
+        <p class="subtitle">输入官网分享链接，一键获取无水印视频 | 完全免费</p>
+
+        <div class="input-group">
+            <label for="shareUrl">Sora分享链接</label>
+            <textarea 
+                id="shareUrl" 
+                placeholder="粘贴完整的分享链接，例如：&#10;https://sora.chatgpt.com/p/s_696e04bd04308191a0f23c8222beb369?psh=..."
+            ></textarea>
+        </div>
+
+        <div class="example">
+            <strong>✅ 支持的链接格式：</strong><br>
+            • https://sora.chatgpt.com/p/s_xxxxx...<br>
+            • https://sora.com/share/s_xxxxx...<br>
+            • 或直接输入视频ID: s_xxxxx...
+        </div>
+
+        <div class="button-group">
+            <button class="btn-secondary" onclick="clearForm()">清空</button>
+            <button class="btn-primary" id="processBtn" onclick="processVideo()">
+                开始处理
+            </button>
+        </div>
+
+        <div id="status" class="status"></div>
+        
+        <div id="downloadSection" class="download-section">
+            <h3 style="margin-bottom: 15px; color: #333;">📥 无水印视频地址</h3>
+            <div class="video-url" id="videoUrl"></div>
+            <div class="download-link">
+                <a id="downloadBtn" href="#" target="_blank">⬇️ 点击下载视频</a>
+                <button class="copy-btn" onclick="copyUrl()">📋 复制链接</button>
+            </div>
+        </div>
+
+        <!-- 广告区域 -->
+        <div class="ad-section">
+            <div class="ad-title">🎬 一键生成爆款动画，打造你个人IP</div>
+            <img src="qrcode.png" alt="客服二维码" class="qrcode-img">
+            <div class="ad-description">
+                <strong>扫码添加客服微信</strong><br>
+                获取更多帮助和专业服务<br>
+                一对一解答您的问题
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 Sora视频工具 | 完全免费使用</p>
+        </footer>
+    </div>
+
+    <script>
+        function showStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('status');
+            statusDiv.className = `status ${type}`;
+            statusDiv.innerHTML = message;
+        }
+
+        function hideStatus() {
+            document.getElementById('status').className = 'status';
+        }
+
+        function clearForm() {
+            document.getElementById('shareUrl').value = '';
+            hideStatus();
+            document.getElementById('downloadSection').classList.remove('show');
+        }
+
+        function extractVideoId(url) {
+            url = url.split('?')[0].replace(/\\+$/, '').trim();
+            const match = url.match(/s_[a-f0-9]{32}/i);
+            return match ? match[0] : null;
+        }
+
+        function processVideo() {
+            const shareUrl = document.getElementById('shareUrl').value.trim();
+            
+            if (!shareUrl) {
+                showStatus('❌ 请输入Sora分享链接', 'error');
+                return;
+            }
+
+            const videoId = extractVideoId(shareUrl);
+            if (!videoId) {
+                showStatus('❌ 无效的分享链接格式。请确保链接包含 s_ 开头的32位视频ID', 'error');
+                return;
+            }
+
+            const watermarkFreeUrl = `https://oscdn2.dyysy.com/MP4/${videoId}.mp4`;
+            
+            showStatus(`✅ 解析成功！<br>视频ID: <strong>${videoId}</strong>`, 'success');
+            
+            document.getElementById('videoUrl').textContent = watermarkFreeUrl;
+            document.getElementById('downloadBtn').href = watermarkFreeUrl;
+            document.getElementById('downloadBtn').download = `sora_video_${videoId}.mp4`;
+            document.getElementById('downloadSection').classList.add('show');
+        }
+
+        function copyUrl() {
+            const url = document.getElementById('videoUrl').textContent;
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('✅ 链接已复制到剪贴板！');
+                }).catch(() => {
+                    fallbackCopy(url);
+                });
+            } else {
+                fallbackCopy(url);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                alert('✅ 链接已复制到剪贴板！');
+            } catch (err) {
+                alert('❌ 复制失败，请手动复制链接');
+            }
+            document.body.removeChild(textarea);
+        }
+
+        document.getElementById('shareUrl').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                e.preventDefault();
+                processVideo();
+            }
+        });
+    </script>
+</body>
+</html>
